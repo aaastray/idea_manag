@@ -1,26 +1,47 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+/*
+import { useRoleStore } from '../store';
 
-const props = defineProps();
+const roleStore = useRoleStore();
+const getRoleName = roleStore.getRoleName;
+const updateRole = (role: string) => {
+  roleStore.updateRole(role);
+}
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const toggleUserRole = () => {
   const userRole = localStorage.getItem('userRole');
 
   if (userRole === 'admin') {
     localStorage.setItem('userRole', 'initiator');
+    if (router.currentRoute.value.path === '/admin_page') {
+      router.push('/')
+    }
   } else {
     localStorage.setItem('userRole', 'admin');
   };
 }
 
-import { ref } from 'vue'
-const role = ref(localStorage.getItem('userRole') || 'initiator')
-const isAdmin = (role: string): boolean => {
-  return role === 'admin';
+let role = ref(localStorage.getItem('userRole') || 'initiator')
+
+const isAdmin = (userRole: string) => {
+  if (userRole === 'admin') return true
+  else return false
+}
+*/
+
+import { useRoleStore } from './store';
+
+const roleStore = useRoleStore();
+const toggleUserRole = () => {
+  roleStore.toggleUserRole();
 }
 </script>
 
 <template>
+
   <header>
     <nav class="navbar navbar-expand-lg navbar-fixed" style="background-color: #fff;">
       <div class="container-fluid">
@@ -46,14 +67,14 @@ const isAdmin = (role: string): boolean => {
                 <li><a class="dropdown-item" href="#">Быстрая идея</a></li>
               </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" v-if="isAdmin(role)" href="/admin_page" >Для админов</a>
-            </li>
-
             <li class="nav-item">
               <a class="nav-link" @click="toggleUserRole" href="">Сменить роль</a>
             </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" v-if="roleStore.isAdmin" href="/admin_page" >Для админов</a>
+            </li>
+            
           </ul>
         </div>
       </div>
@@ -63,6 +84,7 @@ const isAdmin = (role: string): boolean => {
   <main class="main">
     <router-view />
   </main>
+  
 </template>
 
 <style scoped>

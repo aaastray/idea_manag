@@ -2,6 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import MainPage from './components/MainPage.vue'
@@ -37,5 +38,6 @@ const router = createRouter({
 
 const app = createApp(App)
 app.use(router)
+app.use(createPinia())
 app.mount('#app')
 

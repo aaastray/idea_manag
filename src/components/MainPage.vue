@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useRoleStore } from '../store';
 
-const role = ref(localStorage.getItem('userRole') || 'initiator')
-
-const updateRole = (selectedRole: string) => {
-    role.value = selectedRole
-    localStorage.setItem('userRole', role.value)
-}
-
-const getRoleName = (role: string): string => {
-    return role === 'initiator' ? 'Инициатор идей' :
-    role === 'admin' ? 'Администратор' : ''
+const roleStore = useRoleStore();
+const updateRole = (role: string) => {
+  roleStore.updateRole(role);
 }
 </script>
 
@@ -27,7 +20,7 @@ const getRoleName = (role: string): string => {
             <button class="btn" @click="updateRole('initiator')">Инициатор</button>
             <button class="btn" @click="updateRole('admin')">Администратор</button>
         </div>
-        <p class="text txt-accent">Текущая роль : {{ getRoleName(role) }}</p>
+        <p class="text txt-accent">Текущая роль : {{ roleStore.getRoleName }}</p>
       </div>
     </div>
 </template>
