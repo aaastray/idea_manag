@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoleStore } from '../store';
+import { useRoleStore } from '../stores/store';
 
 const roleStore = useRoleStore();
 const updateRole = (role: string) => {
@@ -26,7 +26,6 @@ const updateRole = (role: string) => {
 </template>
 
 <style scoped>
-
 .first-page {
   width: 100%;
   height: 100%;
@@ -34,6 +33,9 @@ const updateRole = (role: string) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 
 .title {
@@ -53,14 +55,4 @@ const updateRole = (role: string) => {
 .select {
   margin-bottom: 55px;
 }
-
-.btn {
-  background: #2c3e50;
-  color: #fff;
-  margin-left: 30px;
-}
-.btn:first-child {
-  margin-left: 0;
-}
-
-</style>
+</style>../stores/store

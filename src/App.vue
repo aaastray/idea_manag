@@ -1,38 +1,5 @@
 <script setup lang="ts">
-/*
-import { useRoleStore } from '../store';
-
-const roleStore = useRoleStore();
-const getRoleName = roleStore.getRoleName;
-const updateRole = (role: string) => {
-  roleStore.updateRole(role);
-}
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const toggleUserRole = () => {
-  const userRole = localStorage.getItem('userRole');
-
-  if (userRole === 'admin') {
-    localStorage.setItem('userRole', 'initiator');
-    if (router.currentRoute.value.path === '/admin_page') {
-      router.push('/')
-    }
-  } else {
-    localStorage.setItem('userRole', 'admin');
-  };
-}
-
-let role = ref(localStorage.getItem('userRole') || 'initiator')
-
-const isAdmin = (userRole: string) => {
-  if (userRole === 'admin') return true
-  else return false
-}
-*/
-
-import { useRoleStore } from './store';
+import { useRoleStore } from './stores/store';
 
 const roleStore = useRoleStore();
 const toggleUserRole = () => {
@@ -41,11 +8,10 @@ const toggleUserRole = () => {
 </script>
 
 <template>
-
-  <header>
+  <header class="header">
     <nav class="navbar navbar-expand-lg navbar-fixed" style="background-color: #fff;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">Idea Manag.</a>
+        <router-link to="/" class="nav-link">Idea Manag.</router-link>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -54,7 +20,7 @@ const toggleUserRole = () => {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/all_ideas">Список идей</a>
+              <router-link to="/all_ideas" class="nav-link">Список идей</router-link>
             </li>
 
             <li class="nav-item dropdown">
@@ -62,7 +28,7 @@ const toggleUserRole = () => {
                 Создать
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/create_idea">Записать идею</a></li>
+                <li><router-link to="/create_idea" class="dropdown-item">Записать идею</router-link></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Быстрая идея</a></li>
               </ul>
@@ -72,7 +38,7 @@ const toggleUserRole = () => {
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" v-if="roleStore.isAdmin" href="/admin_page" >Для админов</a>
+              <router-link to="/admin_page" class="nav-link" v-if="roleStore.isAdmin">Для админов</router-link>
             </li>
             
           </ul>
@@ -88,7 +54,10 @@ const toggleUserRole = () => {
 </template>
 
 <style scoped>
-
+.container-fluid {
+  max-width: 1200px;
+  padding: 0 35px;
+}
 .navbar-fixed {
   position: fixed;
   top: 0;
@@ -100,9 +69,5 @@ const toggleUserRole = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding-top: 56px;
-  margin: 0 20px;
 }
-
-</style>
+</style>./stores/store

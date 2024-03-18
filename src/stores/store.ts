@@ -1,13 +1,5 @@
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router';
-/*
 
-    isAdmin(state) {
-        const userRole = state.userRole;
-        if (userRole === 'admin') return true
-        else return false
-    }
-*/
 export const useRoleStore = defineStore({
   id: 'roleStore',
   state: () => ({
