@@ -11,7 +11,7 @@ const toggleUserRole = () => {
   <header class="header">
     <nav class="navbar navbar-expand-lg navbar-fixed" style="background-color: #fff;">
       <div class="container-fluid">
-        <router-link to="/" class="nav-link">Idea Manag.</router-link>
+        <router-link to="/" class="nav-link main_link">Idea Manag.</router-link>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -54,6 +54,9 @@ const toggleUserRole = () => {
 </template>
 
 <style scoped>
+.main_link {
+  margin-right: 15px;
+}
 .container-fluid {
   max-width: 1200px;
   padding: 0 35px;

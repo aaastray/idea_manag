@@ -12,7 +12,7 @@ const notes = noteStore.allNotes;
             <h3>Тут будут все идеи</h3>
 
             <router-link :to="{name: 'create-idea'}">
-                Создать идею
+                <button class="btn">Создать идею</button>
             </router-link>
         </div>
 

@@ -1,45 +1,39 @@
 import { defineStore } from 'pinia';
 
+interface Note {
+    id: number;
+    title: string;
+    problem: string;
+    result: string;
+    resources: string;
+    timestamp: number;
+}
+
 export const useNoteStore = defineStore('noteStore', {
     state: () => ({
-        notes: [
-            {
-                id: 1,
-                title: 'Note title',
-                problem: 'text',
-                result: 'text',
-                resources: 'text',
-                timestamp: Date.now()
-            },
-            {
-                id: 2,
-                title: 'Note about lalala',
-                problem: 'text',
-                result: 'text',
-                resources: 'text',
-                timestamp: Date.now()
-            },
-            {
-                id: 3,
-                title: 'Note abshtttttttttethh tttttttttttttsfgs fgsfgsfgfgsf gsfsgrtttttttttt ttttttttt tttttehethet tttttfgsfgst tttttttttttt bhdgdgttttttt tttttttttttt ttttttttttt tttttttttt tttttout lalala',
-                problem: 'text',
-                result: 'text',
-                resources: 'text',
-                timestamp: Date.now()
-            },
-            {
-                id: 4,
-                title: 'Notesss',
-                problem: 'text',
-                result: 'text',
-                resources: 'text',
-                timestamp: Date.now()
-            }
-        ]
+        lastNoteId: '',
+        notes: [] as Note[]
     }),
     getters: {
         allNotes: ( state ) => {
             return state.notes;
+        }
+    },
+    actions: {
+        // addNote(newNote: Note): void {
+        //     this.notes.push({
+        //         id: this.notes.length + 1,
+        //         title: newNote.title,
+        //         problem: newNote.problem,
+        //         result: newNote.result,
+        //         resources: newNote.resources,
+        //         timestamp: Date.now()
+        //     });
+        // },
+
+        addNewNote(nnote: any) {
+            const newNotesArr = [nnote, ...this.notes];
+            this.notes = newNotesArr;
         }
     }
 });

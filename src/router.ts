@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import { useRoleStore } from './stores/store'
+import { createRouter, createWebHistory } from 'vue-router';
+import { useRoleStore } from './stores/store';
 
-import MainPage from './components/MainPage.vue'
-import AllIdeas from './components/AllIdeas.vue'
-import CreateIdea from './components/CreateIdea.vue'
-import AdminPage from './components/AdminPage.vue'
+import MainPage from './components/MainPage.vue';
+import AllIdeas from './components/AllIdeas.vue';
+import CreateIdea from './components/CreateIdea.vue';
+import AdminPage from './components/AdminPage.vue';
+// import NotePage from './components/NotePage.vue';
 
 const router = createRouter({
     routes: [
