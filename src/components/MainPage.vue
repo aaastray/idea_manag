@@ -8,8 +8,8 @@ const updateRole = (role: string) => {
 </script>
 
 <template>
-    <div class="container">
-      <div class="first-page" id="firstPage">
+    <div class="container main">
+      <div class="first-page">
         <h3 class="title">Приветсвуем Вас</h3>
         <p class="text">Этот сайт был создан для тренировки. Я добавлю немного текста здесь,
           чтобы создать видимость содержательности. Строго не судить, я потратила
@@ -26,9 +26,13 @@ const updateRole = (role: string) => {
 </template>
 
 <style scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 .first-page {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,7 +41,6 @@ const updateRole = (role: string) => {
   top: 50%;
   transform: translate(0, -50%);
 }
-
 .title {
   margin-bottom: 55px;
 }

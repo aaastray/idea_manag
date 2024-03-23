@@ -1,9 +1,38 @@
 <script setup lang="ts">
 import { useRoleStore } from './stores/store';
+import { v4 as uuidv4  } from 'uuid';
+import { useNoteStore } from '@/stores/NoteStore';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const noteStore = useNoteStore();
 
 const roleStore = useRoleStore();
 const toggleUserRole = () => {
   roleStore.toggleUserRole();
+}
+
+const openModal = () => {
+  let noteTitlefromModal = prompt('Введите название идеи');
+
+  if (noteTitlefromModal) {
+    let insertID = noteStore.lastNoteId;
+    
+    if ( noteTitlefromModal.length > 0 ) {
+      insertID = uuidv4();
+
+      noteStore.addNewNote({
+        id: insertID,
+        title: noteTitlefromModal,
+        problem: '-- Поле не заполнено --',
+        result: '-- Поле не заполнено --',
+        resources: '-- Поле не заполнено --',
+        timestamp: Date.now()
+      });
+      
+      alert(`Идея "${noteTitlefromModal}"" сохранена`);
+    }
+  }
 }
 </script>
 
@@ -30,7 +59,7 @@ const toggleUserRole = () => {
               <ul class="dropdown-menu">
                 <li><router-link to="/create_idea" class="dropdown-item">Записать идею</router-link></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Быстрая идея</a></li>
+                <li><a class="dropdown-item" href="" @click="openModal()">Быстрая идея</a></li>
               </ul>
             </li>
             <li class="nav-item">

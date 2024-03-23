@@ -3,7 +3,9 @@ import { ref } from 'vue';
 import contenteditable from 'vue-contenteditable';
 import { v4 as uuidv4  } from 'uuid';
 import { useNoteStore } from '@/stores/NoteStore';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const noteStore = useNoteStore();
 
 const title = ref('');
@@ -20,9 +22,9 @@ const handleForm = () => {
         noteStore.addNewNote({
             id: insertID,
             title: title.value,
-            problem: problem.value,
-            result: result.value,
-            resources: resources.value,
+            problem: problem.value.length > 0 ? problem.value : '-- Поле не заполнено --',
+            result: result.value.length > 0 ? result.value : '-- Поле не заполнено --',
+            resources: resources.value.length > 0 ? resources.value : '-- Поле не заполнено --',
             timestamp: Date.now()
         });
 
@@ -32,9 +34,11 @@ const handleForm = () => {
         result.value = '';
         resources.value = '';
 
+        router.push({ name: 'all-ideas' });
+    } else {
+        alert('Заполните поле с названием!');
     }
 }
-
 
 </script>
 
@@ -42,7 +46,7 @@ const handleForm = () => {
     <div class="container">
         <h3>Создание идеи</h3>
         <form class="form" @submit.prevent="handleForm">
-            <div class="form_blank">
+            <div>
                 <p>Введите название идеи:</p>
                 <contenteditable
                     tag="div"
@@ -54,7 +58,7 @@ const handleForm = () => {
                 />
             </div>
 
-            <div class="form_blank">
+            <div>
                 <p>Проблема идеи:</p>
                 <contenteditable
                     tag="div"
