@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// import { ref } from 'vue';
 import { useRoleStore } from './stores/store';
 import { v4 as uuidv4  } from 'uuid';
 import { useNoteStore } from '@/stores/NoteStore';
@@ -6,6 +7,9 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const noteStore = useNoteStore();
+
+const noteId = router.currentRoute.value.params.id;
+// const note = ref(noteStore.allNotes.find((note) => note.id === noteId));
 
 const roleStore = useRoleStore();
 const toggleUserRole = () => {
@@ -31,6 +35,7 @@ const openModal = () => {
       });
       
       alert(`Идея "${noteTitlefromModal}"" сохранена`);
+      router.push({name: 'note-page', params: { id: insertID }});
     }
   }
 }
