@@ -55,6 +55,7 @@ const handleForm = () => {
                     :no-nl="true"
                     :no-html="true"
                     v-model="title"
+                    id="contenteditable"
                 />
             </div>
 
@@ -113,6 +114,6 @@ p {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 </style>

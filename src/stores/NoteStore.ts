@@ -12,7 +12,8 @@ export interface Note {
 export const useNoteStore = defineStore('noteStore', {
     state: () => ({
         lastNoteId: '',
-        notes: JSON.parse(localStorage.getItem('notes') || '[]') as Note[]
+        notes: JSON.parse(localStorage.getItem('notes') || '[]') as Note[],
+        editing: false
     }),
     getters: {
         allNotes: ( state ) => {

@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const noteStore = useNoteStore();
 
-const noteId = router.currentRoute.value.params.id;
+// const noteId = router.currentRoute.value.params.id;
 // const note = ref(noteStore.allNotes.find((note) => note.id === noteId));
 
 const roleStore = useRoleStore();

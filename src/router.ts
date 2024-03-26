@@ -6,7 +6,6 @@ import AllIdeas from './components/AllIdeas.vue';
 import CreateIdea from './components/CreateIdea.vue';
 import AdminPage from './components/AdminPage.vue';
 import NotePage from './components/NotePage.vue';
-import EditIdea from './components/EditIdea.vue';
 
 const router = createRouter({
     routes: [
@@ -37,11 +36,6 @@ const router = createRouter({
             path: '/notepage/:id',
             name: 'note-page',
             component: () => NotePage
-        },
-        {
-            path: '/edit/:id',
-            name: 'edit-page',
-            component: EditIdea
         }
     ],
     history: createWebHistory()
