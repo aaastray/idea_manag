@@ -133,6 +133,8 @@ onBeforeRouteLeave((to, from, next) => {
     word-wrap: normal;
     width: 60%;
     margin-bottom: 16px;
+    overflow: hidden;
+    word-break: keep-all;
 }
 .content_editable {
     word-wrap: normal;
@@ -142,7 +144,7 @@ onBeforeRouteLeave((to, from, next) => {
 .edit_title {
     font-size: 18px;
     font-weight: 600;
-    overflow: hidden;
+    word-break: keep-all;
 }
 pre {
     font-family: var(--bs-body-font-family) !important;

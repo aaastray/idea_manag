@@ -5,6 +5,16 @@ import { v4 as uuidv4  } from 'uuid';
 import { useNoteStore } from '@/stores/NoteStore';
 import { useRouter } from 'vue-router';
 
+
+const myModal = document.getElementById('myModal') as HTMLElement | null;
+const myInput = document.getElementById('myInput') as HTMLElement | null;
+
+if (myModal && myInput) {
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus();
+    });
+}
+
 const router = useRouter();
 const noteStore = useNoteStore();
 
@@ -12,6 +22,8 @@ const title = ref('');
 const problem = ref('');
 const result = ref('');
 const resources = ref('');
+
+const showModal = ref(false);
 
 const handleForm = () => {
     let insertID = noteStore.lastNoteId;
@@ -35,8 +47,10 @@ const handleForm = () => {
         resources.value = '';
 
         router.push({ name: 'all-ideas' });
+
     } else {
-        alert('Заполните поле с названием!');
+        // alert('Заполните поле с названием!');
+        showModal.value = true;
     }
 }
 
@@ -95,7 +109,25 @@ const handleForm = () => {
                 />
             </div>
 
-            <button type="submit" class="btn">Сохранить</button>
+            <button type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#messageModal">Сохранить</button>
+
+            <div v-if="showModal" class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Предупреждение</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Введите название идеи</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
         </form>
     </div>
 </template>
@@ -114,6 +146,7 @@ p {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
-    /* margin-bottom: 30px; */
+    word-break: keep-all;
+    word-break: break-all;
 }
 </style>

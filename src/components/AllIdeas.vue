@@ -94,6 +94,7 @@ ul {
 .idea__item__title {
     width: 100%;
     margin: 0;
+    word-break: keep-all;
 }
 .li_item {
     margin-left: auto;
