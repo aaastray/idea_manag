@@ -171,6 +171,12 @@ onBeforeRouteLeave((to, from, next) => {
     word-wrap: normal;
     width: 60%;
     margin-bottom: 16px;
+    border: 1.5px solid #000;
+    border-radius: 5px;
+    padding: 8px;
+}
+.content_editable:first-child {
+    border: 0px;
 }
 .edit_title {
     font-size: 18px;

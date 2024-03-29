@@ -11,10 +11,7 @@ const updateRole = (role: string) => {
     <div class="container main">
       <div class="first-page">
         <h3 class="title">Приветсвуем Вас</h3>
-        <p class="text">Этот сайт был создан для тренировки. Я добавлю немного текста здесь,
-          чтобы создать видимость содержательности. Строго не судить, я потратила
-          много сил. Ну это так... Инфа чисто, если кому-нибудь интересно <span>&#128522;</span>
-        </p>
+        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero a perspiciatis velit. Reiciendis, consectetur ipsam vero placeat quo sapiente sit quis neque nulla praesentium, alias molestias, impedit ipsa. Vitae, eaque.</p>
         <p class="text">Выберите вашу роль:</p>
         <div class="select">
             <button class="btn" @click="updateRole('initiator')">Инициатор</button>
