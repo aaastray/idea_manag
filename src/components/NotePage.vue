@@ -46,15 +46,11 @@ const editNote = () => {
     }
 };
 
-const deleteNote = () => {
+const deletenote = () => {
     if (note.value) {
-        let question = confirm('Вы точно хотите удалить запись?');
-
-        if (question) {
-            const delNote = { ...deletedNote.value, id: note.value.id };
-            noteStore.deleteNote(delNote);
-            router.push({ name: 'all-ideas' });
-        }
+        const delNote = { ...deletedNote.value, id: note.value.id };
+        noteStore.deleteNote(delNote);
+        router.push({ name: 'all-ideas' });
     }
 }
 
@@ -79,7 +75,7 @@ onBeforeRouteLeave((to, from, next) => {
                 <h3 v-else class="note_title">{{ note.title }}</h3>
 
                 <span v-if="!noteStore.editing" class="material-symbols-outlined li_item" @click="editNote()">edit</span>
-                <span class="material-symbols-outlined li_item" @click="deleteNote()">delete</span>
+                <span class="material-symbols-outlined li_item" data-bs-toggle="modal" data-bs-target="#deleteModal">delete</span>
             </div>
             
             <p><strong>Проблема:</strong></p>
@@ -121,6 +117,41 @@ onBeforeRouteLeave((to, from, next) => {
         <div v-else>
             <h2>Запись не найдена.</h2>
         </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Сообщение</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить запись?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @click="deletenote()" data-bs-toggle="modal" data-bs-target="#deletedModal">Да, удалить</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Сообщение</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Запись удалена</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ок</button>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 

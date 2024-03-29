@@ -5,18 +5,32 @@ import { useRoleStore } from './stores/store';
 import { v4 as uuidv4  } from 'uuid';
 import { useNoteStore } from '@/stores/NoteStore';
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+
+// Закрытие меню в мобильной версии при переходе по пунктам
+const handleMenuItemClick = () => {
+  const navbarCollapse = document.querySelector('.navbar-collapse');
+  if (navbarCollapse) {
+    (navbarCollapse as HTMLElement).classList.remove('show');
+  }
+};
+
+onMounted(() => {
+  const navbarNav = document.querySelector('.navbar-nav');
+  if (navbarNav) {
+    navbarNav.addEventListener('click', (event: Event) => {
+      const target = event.target as HTMLElement;
+      if (target && target.tagName === 'A' && !target.closest('.dropdown')) {
+        handleMenuItemClick();
+      } else if (target && target.tagName === 'A' && target.closest('.dropdown-item')) {
+        handleMenuItemClick();
+      }
+    });
+  }
+});
 
 const router = useRouter();
 const noteStore = useNoteStore();
-
-const myModal = document.getElementById('myModal') as HTMLElement | null;
-const myInput = document.getElementById('myInput') as HTMLElement | null;
-
-if (myModal && myInput) {
-  myModal.addEventListener('shown.bs.modal', () => {
-    myInput.focus();
-  });
-}
 
 const showDoneModal = ref(false);
 const title = ref('');
@@ -127,7 +141,7 @@ const saveModal = () => {
           </div>
           <div class="modal-body">
             <p v-if="showDoneModal">Идея сохранена</p>
-            <p v-else>Ошибка, попробуйте снова</p>
+            <p v-else>Ошибка. Введите название</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -144,7 +158,8 @@ const saveModal = () => {
 <style scoped>
 .content_editable {
   width: 100%;
-  word-break: break-all;
+  word-break: keep-all;
+  overflow: hidden;
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;

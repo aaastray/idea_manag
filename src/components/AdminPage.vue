@@ -24,7 +24,6 @@ const loadRandomIdeas = () => {
 
 const addNewIdea = () => {
     let ideaTitlefromModal = title.value;
-    showModal.value = true;
 
     if (ideaTitlefromModal) {
         if (ideaTitlefromModal.length > 0) {
@@ -32,6 +31,7 @@ const addNewIdea = () => {
             ideasStore.addIdea(newIdea);
             ideas.unshift(newIdea);
             title.value = '';
+            showModal.value = true;
         }
     }
 };
@@ -87,7 +87,7 @@ const addNewIdea = () => {
           </div>
           <div class="modal-body">
             <p v-if="showModal">Идея сохранена</p>
-            <p v-else>Ошибка, попробуйте снова</p>
+            <p v-else>Ошибка. Введите название</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -101,7 +101,8 @@ const addNewIdea = () => {
 
 .content_editable_admin {
   width: 100%;
-  word-break: break-all;
+  word-break: keep-all;
+  overflow: hidden;
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;

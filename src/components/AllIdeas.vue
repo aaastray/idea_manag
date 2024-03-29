@@ -10,16 +10,20 @@ const router = useRouter();
 const notes = noteStore.allNotes;
 const noteId = router.currentRoute.value.params.id;
 const note = ref(noteStore.allNotes.find((note) => note.id === noteId));
+const selectedNote = ref(note.value as Note)
 
-const editNote = (noteId: string) => {
+const editNote = () => {
     noteStore.editing = true;
 };
 
-const deleteNote = (note: Note) => {
-  const question = confirm('Вы точно хотите удалить запись?');
-  if (question) {
-    noteStore.deleteNote(note);
-  }
+const updateSelectedNote = (note: Note) => {
+    selectedNote.value = note;
+};
+
+const deletenote = () => {
+    if (selectedNote) {
+        noteStore.deleteNote(selectedNote.value);
+    }
 };
 </script>
 
@@ -44,15 +48,52 @@ const deleteNote = (note: Note) => {
 
                         <div>
                             <router-link :to="{name: 'note-page', params: { id: note.id}}" class="a_link li_item">
-                                <span class="material-symbols-outlined li_item" @click="editNote(note.id)">edit</span>
+                                <span class="material-symbols-outlined li_item" @click="editNote()">edit</span>
                             </router-link>
 
-                            <span class="material-symbols-outlined li_item" @click="deleteNote(note)">delete</span>
+                            <span class="material-symbols-outlined li_item" @click="updateSelectedNote(note)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                delete
+                            </span>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Сообщение</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить запись?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @click="deletenote()" data-bs-toggle="modal" data-bs-target="#deletedModal">Да, удалить</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Сообщение</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Запись удалена</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ок</button>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 

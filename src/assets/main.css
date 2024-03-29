@@ -28,3 +28,13 @@ body {
 .btn:first-child {
   margin-left: 0;
 }
+.btn-secondary {
+  background: #9dadbd;
+  color: #414447;
+}
+.btn-secondary:hover {
+  background: #5f6a75;
+}
+.btn-primary:hover{
+  background: #0c2a47;
+}

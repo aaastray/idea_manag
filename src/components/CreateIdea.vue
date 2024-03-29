@@ -5,16 +5,6 @@ import { v4 as uuidv4  } from 'uuid';
 import { useNoteStore } from '@/stores/NoteStore';
 import { useRouter } from 'vue-router';
 
-
-const myModal = document.getElementById('myModal') as HTMLElement | null;
-const myInput = document.getElementById('myInput') as HTMLElement | null;
-
-if (myModal && myInput) {
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus();
-    });
-}
-
 const router = useRouter();
 const noteStore = useNoteStore();
 
@@ -24,6 +14,14 @@ const result = ref('');
 const resources = ref('');
 
 const showModal = ref(false);
+
+const titleInput = document.getElementById('contenteditable');
+
+if (titleInput) {
+    titleInput.addEventListener('input', () => {
+        title.value = titleInput.innerText.trim();
+    });
+}
 
 const handleForm = () => {
     let insertID = noteStore.lastNoteId;
@@ -39,8 +37,6 @@ const handleForm = () => {
             resources: resources.value.length > 0 ? resources.value : '-- Поле не заполнено --',
             timestamp: Date.now()
         });
-
-        console.log(insertID);
         title.value = '';
         problem.value = '';
         result.value = '';
@@ -49,7 +45,6 @@ const handleForm = () => {
         router.push({ name: 'all-ideas' });
 
     } else {
-        // alert('Заполните поле с названием!');
         showModal.value = true;
     }
 }
@@ -111,18 +106,19 @@ const handleForm = () => {
 
             <button type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#messageModal">Сохранить</button>
 
-            <div v-if="showModal" class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Предупреждение</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Сообщение</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Введите название идеи</p>
+                        <p v-if="showModal">Введите название идеи</p>
+                        <p v-else>Запись сохранена</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                     </div>
                 </div>
@@ -147,6 +143,6 @@ p {
     border-radius: 5px;
     padding: 5px;
     word-break: keep-all;
-    word-break: break-all;
+    overflow: hidden;
 }
 </style>

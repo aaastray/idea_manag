@@ -35,7 +35,7 @@ const router = createRouter({
         {
             path: '/notepage/:id',
             name: 'note-page',
-            component: () => NotePage
+            component: () => import('./components/NotePage.vue')
         }
     ],
     history: createWebHistory()
